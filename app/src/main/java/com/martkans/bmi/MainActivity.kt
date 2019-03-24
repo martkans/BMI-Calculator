@@ -2,9 +2,10 @@ package com.martkans.bmi
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.EditText
 import android.widget.Toast
-import com.martkans.bmi.logic.Bmi
 import com.martkans.bmi.logic.BmiForKgCm
 
 import kotlinx.android.synthetic.main.activity_main.*
@@ -19,11 +20,43 @@ class MainActivity : AppCompatActivity() {
 
         countBtn.setOnClickListener{
 
-            this.bmi.height = getAndValidateInput(heightInput, 100, 300, "height")
-            this.bmi.mass = getAndValidateInput(massInput, 20, 300, "mass")
+            this.bmi.height = getAndValidateInput(heightET, 100, 300, "height")
+            this.bmi.mass = getAndValidateInput(massET, 20, 300, "mass")
 
             showResults()
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        menuInflater.inflate(R.menu.menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle action bar item clicks here.
+        val id = item.itemId
+
+        if (id == R.id.aboutMI) {
+            Toast.makeText(this, "About Clicked", Toast.LENGTH_LONG).show()
+            return true
+        }
+
+        if (id == R.id.imperialMI) {
+
+            item.isChecked = !item.isChecked
+            Toast.makeText(this, "Imperial units Clicked", Toast.LENGTH_LONG).show()
+            return true
+        }
+
+        if(id == R.id.historyMI) {
+
+            Toast.makeText(this, "History Clicked", Toast.LENGTH_LONG).show()
+            return true
+        }
+
+        return super.onOptionsItemSelected(item)
+
     }
 
     private fun getAndValidateInput(input: EditText, lowerLimit: Int, higherLimit:Int, inputCategory:String):Int{
