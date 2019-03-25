@@ -2,7 +2,7 @@
 <menu xmlns:tools="http://schemas.android.com/tools" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:title="@string/bmi_menu_about_me" android:id="@+id/aboutMI"/>
-    <item android:title="@string/bmi_menu_imperial_units" android:id="@+id/imperialMI"
-          android:enabled="true"/>
+    <item android:title="@string/bmi_menu_imperial_units" android:id="@+id/changeUnitsMI"
+    />
     <item android:title="@string/bmi_menu_history" android:id="@+id/historyMI"/>
 </menu>

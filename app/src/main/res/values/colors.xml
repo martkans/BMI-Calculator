@@ -4,9 +4,9 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
 
-    <color name="rozPompejski">#B80000</color>
-    <color name="grynszpan">#00A693</color>
+    <color name="pompeianRoses">#B80000</color>
+    <color name="verdigris">#00A693</color>
     <color name="lapisLazuli">#3366CC</color>
-    <color name="kobaltowy">#19247C</color>
-    <color name="jagodowy">#800080</color>
+    <color name="cobaltic">#19247C</color>
+    <color name="blueberry">#800080</color>
 </resources>

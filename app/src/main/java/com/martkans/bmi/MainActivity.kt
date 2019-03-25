@@ -60,14 +60,14 @@ class MainActivity : AppCompatActivity() {
 
     private fun showResults(){
 
-        val bmiRangeDescription = bmiLevel()
-
-        yourBMITV.setTextColor(ContextCompat.getColor(this, bmiRangeDescription.second))
-        yourBMITV.text = if (bmi.countBmi() == null) "" else String.format("%.2f", bmi.countBmi())
-
-        yourBMIrangeTV.setText(bmiRangeDescription.first)
-
         if(bmi.countBmi() != null){
+            val bmiRangeDescription = bmiLevel()
+
+            yourBMITV.setTextColor(ContextCompat.getColor(this, bmiRangeDescription.second))
+            yourBMITV.text = String.format("%.2f", bmi.countBmi())
+
+            yourBMIrangeTV.setText(bmiRangeDescription.first)
+
             infoIB.visibility = View.VISIBLE
         } else {
             infoIB.visibility = View.INVISIBLE
@@ -79,11 +79,11 @@ class MainActivity : AppCompatActivity() {
 
         when {
             bmiVal == null   -> return Pair(0, 0)
-            bmiVal < 18.5   -> return Pair(R.string.bmi_main_range_underweight, R.color.rozPompejski)
-            bmiVal <= 24.9  -> return Pair(R.string.bmi_main_range_healthy, R.color.grynszpan)
+            bmiVal < 18.5   -> return Pair(R.string.bmi_main_range_underweight, R.color.pompeianRoses)
+            bmiVal <= 24.9  -> return Pair(R.string.bmi_main_range_healthy, R.color.verdigris)
             bmiVal <= 29.9  -> return Pair(R.string.bmi_main_range_overweight, R.color.lapisLazuli)
-            bmiVal <= 34.9  -> return Pair(R.string.bmi_main_range_obesity, R.color.kobaltowy)
-            else            -> return Pair(R.string.bmi_main_range_severe_obesity, R.color.jagodowy)
+            bmiVal <= 34.9  -> return Pair(R.string.bmi_main_range_obesity, R.color.cobaltic)
+            else            -> return Pair(R.string.bmi_main_range_severe_obesity, R.color.blueberry)
         }
 
     }
@@ -95,11 +95,19 @@ class MainActivity : AppCompatActivity() {
         outState?.putString("yourBMITV", yourBMITV.text.toString())
         outState?.putString("yourBMIrangeTV", yourBMIrangeTV.text.toString())
         outState?.putInt("bmiResultColor", yourBMITV.currentTextColor)
+        outState?.putBoolean("isImperialUnits", isImperialUnits)
 
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
         super.onRestoreInstanceState(savedInstanceState)
+
+        if (savedInstanceState != null) {
+            if(savedInstanceState.getBoolean("isImperialUnits")){
+                isImperialUnits = savedInstanceState.getBoolean("isImperialUnits")
+                changeToImperialUnits()
+            }
+        }
 
         if(savedInstanceState?.getInt("bmiResultColor") != null){
             yourBMITV.setTextColor(savedInstanceState.getInt("bmiResultColor"))
@@ -108,8 +116,10 @@ class MainActivity : AppCompatActivity() {
         yourBMITV.text = savedInstanceState?.getString("yourBMITV")
         yourBMIrangeTV.text = savedInstanceState?.getString("yourBMIrangeTV")
 
-        if(savedInstanceState?.getString("yourBMITV") != null){
+        if(!savedInstanceState?.getString("yourBMITV").isNullOrBlank()){
             infoIB.visibility = View.VISIBLE
+        } else {
+            infoIB.visibility = View.INVISIBLE
         }
     }
 
@@ -119,7 +129,13 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
+    override fun onMenuOpened(featureId: Int, menu: Menu?): Boolean {
+        if(isImperialUnits){
+            menu?.findItem(R.id.changeUnitsMI)?.title = getString(R.string.bmi_menu_si_units)
+        }
 
+        return super.onMenuOpened(featureId, menu)
+    }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Handle action bar item clicks here.
         val id = item.itemId
@@ -129,7 +145,7 @@ class MainActivity : AppCompatActivity() {
             return true
         }
 
-        if (id == R.id.imperialMI) {
+        if (id == R.id.changeUnitsMI) {
 
             if(item.title == getString(R.string.bmi_menu_imperial_units)){
                 isImperialUnits = true
@@ -141,12 +157,7 @@ class MainActivity : AppCompatActivity() {
                 changeToSIUnits()
             }
 
-
-            heightET.text.clear()
-            massET.text.clear()
-            yourBMITV.text = ""
-            yourBMIrangeTV.text = ""
-            infoIB.visibility = View.INVISIBLE
+            clearToStartingState()
 
             return true
         }
@@ -186,5 +197,14 @@ class MainActivity : AppCompatActivity() {
 
         upperMassLimit = upperMassLimitKg
         lowerMassLimit = lowerMassLimitKg
+    }
+
+    private fun clearToStartingState(){
+
+        heightET.text.clear()
+        massET.text.clear()
+        yourBMITV.text = ""
+        yourBMIrangeTV.text = ""
+        infoIB.visibility = View.INVISIBLE
     }
 }
