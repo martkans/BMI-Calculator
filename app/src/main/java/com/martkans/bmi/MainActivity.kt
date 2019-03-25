@@ -1,6 +1,5 @@
 package com.martkans.bmi
 
-import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
@@ -103,7 +102,7 @@ class MainActivity : AppCompatActivity() {
         super.onRestoreInstanceState(savedInstanceState)
 
         if(savedInstanceState?.getInt("bmiResultColor") != null){
-            yourBMITV.setTextColor(ContextCompat.getColor(this, savedInstanceState.getInt("color")))
+            yourBMITV.setTextColor(savedInstanceState.getInt("bmiResultColor"))
         }
 
         yourBMITV.text = savedInstanceState?.getString("yourBMITV")
