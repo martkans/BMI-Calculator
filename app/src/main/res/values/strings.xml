@@ -1,3 +1,21 @@
 <resources>
     <string name="app_name">BMI</string>
+
+    <string name="bmi_main_height_cm">Height [cm]:</string>
+    <string name="bmi_main_mass_kg">Mass [kg]:</string>
+
+    <string name="bmi_main_height_in">Height [in]:</string>
+    <string name="bmi_main_mass_lb">Mass [lb]:</string>
+
+    <string name="bmi_main_count">Count</string>
+    <string name="bmi_main_range_underweight">UNDERWEIGHT</string>
+    <string name="bmi_main_range_healthy">HEALTHY</string>
+    <string name="bmi_main_range_overweight">OVERWEIGHT</string>
+    <string name="bmi_main_range_obesity">OBESITY</string>
+    <string name="bmi_main_range_severe_obesity">SEVERE OBESITY</string>
+
+
+    <string name="bmi_menu_about_me">About me</string>
+    <string name="bmi_menu_imperial_units">Imperial units</string>
+    <string name="bmi_menu_history">History</string>
 </resources>

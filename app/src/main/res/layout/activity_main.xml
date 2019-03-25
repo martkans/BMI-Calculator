@@ -20,7 +20,7 @@
                                           android:orientation="horizontal"
                                           app:layout_constraintGuide_percent="0.30"/>
     <TextView
-            android:text="Height [cm]:"
+            android:text="@string/bmi_main_height_cm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/heightTV" app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
@@ -28,7 +28,7 @@
             app:layout_constraintHorizontal_bias="0.0" android:layout_marginTop="32dp"
             app:layout_constraintTop_toTopOf="@+id/guideline"/>
     <Button
-            android:text="Count"
+            android:text="@string/bmi_main_count"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/countBtn" android:layout_marginBottom="16dp"
@@ -62,26 +62,17 @@
                                           android:id="@+id/guideline3"
                                           android:orientation="horizontal"
                                           app:layout_constraintGuide_percent="0.9"/>
-    <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" app:srcCompat="@android:drawable/ic_dialog_info"
-            android:id="@+id/imageView2" android:layout_marginTop="8dp"
-            app:layout_constraintTop_toTopOf="@+id/guideline2" android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/guideline3" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="8dp"
-            android:background="@color/colorAccent" app:layout_constraintStart_toEndOf="@+id/yourBMITV"
-            android:layout_marginStart="8dp" app:layout_constraintHorizontal_bias="0.25"/>
     <EditText
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:inputType="number"
+            android:inputType="number|numberDecimal"
             android:ems="10"
             android:id="@+id/heightET" android:layout_marginTop="8dp"
             app:layout_constraintTop_toBottomOf="@+id/heightTV" android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent" android:layout_marginStart="8dp"
             app:layout_constraintStart_toStartOf="parent"/>
     <TextView
-            android:text="Mass [kg]:"
+            android:text="@string/bmi_main_mass_kg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/massTV" android:layout_marginTop="8dp"
@@ -91,10 +82,20 @@
     <EditText
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:inputType="number"
+            android:inputType="number|numberDecimal"
             android:ems="10"
             android:id="@+id/massET"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
             app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp" android:layout_marginTop="8dp"
             app:layout_constraintTop_toBottomOf="@+id/massTV"/>
+    <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" app:srcCompat="@android:drawable/ic_menu_help"
+            android:id="@+id/infoIB" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toTopOf="@+id/guideline2"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintStart_toEndOf="@+id/yourBMITV" android:layout_marginStart="8dp"
+            app:layout_constraintHorizontal_bias="0.25" android:visibility="invisible" android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/guideline3" app:layout_constraintVertical_bias="0.3"/>
 </android.support.constraint.ConstraintLayout>
