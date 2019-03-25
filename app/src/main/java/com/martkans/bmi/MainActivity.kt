@@ -1,7 +1,9 @@
 package com.martkans.bmi
 
+import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -32,6 +34,8 @@ class MainActivity : AppCompatActivity() {
     private var upperMassLimit: Double = upperMassLimitKg
     private var lowerMassLimit: Double = lowerMassLimitKg
 
+    private var isImperialUnits: Boolean = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -57,8 +61,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun showResults(){
 
+        val bmiRangeDescription = bmiLevel()
+
+        yourBMITV.setTextColor(ContextCompat.getColor(this, bmiRangeDescription.second))
         yourBMITV.text = if (bmi.countBmi() == null) "" else String.format("%.2f", bmi.countBmi())
-        yourBMIrangeTV.text = bmiLevel()
+
+        yourBMIrangeTV.setText(bmiRangeDescription.first)
 
         if(bmi.countBmi() != null){
             infoIB.visibility = View.VISIBLE
@@ -67,16 +75,16 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun bmiLevel(): String{
+    private fun bmiLevel(): Pair<Int, Int> {
         val bmiVal = bmi.countBmi()
 
         when {
-            bmiVal == null   -> return ""
-            bmiVal < 18.5   -> return getString(R.string.bmi_main_range_underweight)
-            bmiVal <= 24.9  -> return getString(R.string.bmi_main_range_healthy)
-            bmiVal <= 29.9  -> return getString(R.string.bmi_main_range_overweight)
-            bmiVal <= 34.9  -> return getString(R.string.bmi_main_range_obesity)
-            else            -> return getString(R.string.bmi_main_range_severe_obesity)
+            bmiVal == null   -> return Pair(0, 0)
+            bmiVal < 18.5   -> return Pair(R.string.bmi_main_range_underweight, R.color.rozPompejski)
+            bmiVal <= 24.9  -> return Pair(R.string.bmi_main_range_healthy, R.color.grynszpan)
+            bmiVal <= 29.9  -> return Pair(R.string.bmi_main_range_overweight, R.color.lapisLazuli)
+            bmiVal <= 34.9  -> return Pair(R.string.bmi_main_range_obesity, R.color.kobaltowy)
+            else            -> return Pair(R.string.bmi_main_range_severe_obesity, R.color.jagodowy)
         }
 
     }
@@ -87,15 +95,23 @@ class MainActivity : AppCompatActivity() {
 
         outState?.putString("yourBMITV", yourBMITV.text.toString())
         outState?.putString("yourBMIrangeTV", yourBMIrangeTV.text.toString())
+        outState?.putInt("bmiResultColor", yourBMITV.currentTextColor)
+
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
         super.onRestoreInstanceState(savedInstanceState)
 
+        if(savedInstanceState?.getInt("bmiResultColor") != null){
+            yourBMITV.setTextColor(ContextCompat.getColor(this, savedInstanceState.getInt("color")))
+        }
+
         yourBMITV.text = savedInstanceState?.getString("yourBMITV")
         yourBMIrangeTV.text = savedInstanceState?.getString("yourBMIrangeTV")
 
-
+        if(savedInstanceState?.getString("yourBMITV") != null){
+            infoIB.visibility = View.VISIBLE
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -103,6 +119,7 @@ class MainActivity : AppCompatActivity() {
         menuInflater.inflate(R.menu.menu, menu)
         return true
     }
+
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Handle action bar item clicks here.
@@ -115,16 +132,21 @@ class MainActivity : AppCompatActivity() {
 
         if (id == R.id.imperialMI) {
 
-            item.isChecked = !item.isChecked
-
-            if(item.isChecked){
+            if(item.title == getString(R.string.bmi_menu_imperial_units)){
+                isImperialUnits = true
+                item.title = getString(R.string.bmi_menu_si_units)
                 changeToImperialUnits()
             } else {
+                isImperialUnits = false
+                item.title = getString(R.string.bmi_menu_imperial_units)
                 changeToSIUnits()
             }
 
+
             heightET.text.clear()
             massET.text.clear()
+            yourBMITV.text = ""
+            yourBMIrangeTV.text = ""
             infoIB.visibility = View.INVISIBLE
 
             return true

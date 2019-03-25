@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:tools="http://schemas.android.com/tools" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:title="@string/bmi_menu_about_me" android:id="@+id/aboutMI"/>
-    <item android:title="@string/bmi_menu_imperial_units" android:checkable="true" android:id="@+id/imperialMI"/>
+    <item android:title="@string/bmi_menu_imperial_units" android:id="@+id/imperialMI"
+          android:enabled="true"/>
     <item android:title="@string/bmi_menu_history" android:id="@+id/historyMI"/>
 </menu>

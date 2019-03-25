@@ -16,6 +16,8 @@
 
 
     <string name="bmi_menu_about_me">About me</string>
-    <string name="bmi_menu_imperial_units">Imperial units</string>
+    <string name="bmi_menu_imperial_units">Change to imperial units</string>
+    <string name="bmi_menu_si_units">Change to SI units</string>
     <string name="bmi_menu_history">History</string>
+
 </resources>
