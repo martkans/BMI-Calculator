@@ -1,5 +1,6 @@
 package com.martkans.bmi
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
@@ -141,7 +142,10 @@ class MainActivity : AppCompatActivity() {
         val id = item.itemId
 
         if (id == R.id.aboutMI) {
-            Toast.makeText(this, "About Clicked", Toast.LENGTH_LONG).show()
+
+            val aboutIntent = Intent(this, AboutActivity::class.java)
+            startActivity(aboutIntent)
+
             return true
         }
 
