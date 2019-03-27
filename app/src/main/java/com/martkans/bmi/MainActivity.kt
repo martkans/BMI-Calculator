@@ -69,7 +69,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun showResults(){
 
-        if(bmi.countBmi() != null){
+        if(bmi.countBmi() != 0.0){
             val bmiRangeDescription = bmiLevel()
 
             yourBMITV.setTextColor(ContextCompat.getColor(this, bmiRangeDescription.second))
@@ -86,7 +86,7 @@ class MainActivity : AppCompatActivity() {
     private fun getAndValidateInput(input: EditText, lowerLimit: Double, upperLimit: Double, inputCategory: String): Double{
 
         if(input.text.isEmpty() || input.text.toString().toDouble() < lowerLimit || input.text.toString().toDouble() > upperLimit){
-            Toast.makeText(this, "Provide valid $inputCategory value!", Toast.LENGTH_SHORT).show()
+            input.error = "Provide valid $inputCategory value!"
             return 0.0
         }
 
@@ -96,13 +96,13 @@ class MainActivity : AppCompatActivity() {
     private fun bmiLevel(): Pair<Int, Int> {
         val bmiVal = bmi.countBmi()
 
-        when {
-            bmiVal == null   -> return Pair(0, 0)
-            bmiVal < 18.5   -> return Pair(R.string.bmi_main_range_underweight, R.color.pompeianRoses)
-            bmiVal <= 24.9  -> return Pair(R.string.bmi_main_range_healthy, R.color.verdigris)
-            bmiVal <= 29.9  -> return Pair(R.string.bmi_main_range_overweight, R.color.lapisLazuli)
-            bmiVal <= 34.9  -> return Pair(R.string.bmi_main_range_obesity, R.color.cobaltic)
-            else            -> return Pair(R.string.bmi_main_range_severe_obesity, R.color.blueberry)
+        return when {
+            bmiVal == 0.0   -> Pair(0, 0)
+            bmiVal < 18.5   -> Pair(R.string.bmi_main_range_underweight, R.color.pompeianRoses)
+            bmiVal <= 24.9  -> Pair(R.string.bmi_main_range_healthy, R.color.verdigris)
+            bmiVal <= 29.9  -> Pair(R.string.bmi_main_range_overweight, R.color.lapisLazuli)
+            bmiVal <= 34.9  -> Pair(R.string.bmi_main_range_obesity, R.color.cobaltic)
+            else            -> Pair(R.string.bmi_main_range_severe_obesity, R.color.blueberry)
         }
 
     }
@@ -130,10 +130,10 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
 
-        when {
-            id == R.id.aboutMI -> showAbout()
-            id == R.id.changeUnitsMI -> changeUnits(item)
-            id == R.id.historyMI -> {
+        when (id) {
+            R.id.aboutMI -> showAbout()
+            R.id.changeUnitsMI -> changeUnits(item)
+            R.id.historyMI -> {
                 Toast.makeText(this, "See you on Sunday!", Toast.LENGTH_LONG).show()
                 return true
             }
