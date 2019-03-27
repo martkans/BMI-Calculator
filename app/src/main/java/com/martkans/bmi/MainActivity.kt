@@ -17,22 +17,33 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    private val upperHeightLimitCm: Double = 300.0
-    private val lowerHeightLimitCm: Double = 100.0
+    companion object {
+        const val KEY_BMI_VALUE: String = "bmiValue"
+        const val KEY_BMI_RANGE: String = "bmiRange"
 
-    private val upperMassLimitKg: Double = 300.0
-    private val lowerMassLimitKg: Double = 30.0
+        private const val KEY_BMI_RESULT_COLOR: String = "bmiResultColor"
+        private const val KEY_IMPERIAL_UNITS_FLAG: String = "imperialUnitsFlag"
 
-    private val cmToInMultiplier: Double = 0.39370079
-    private val kgToLbMultiplier: Double = 2.20462262
+        private const val UPPER_HEIGHT_LIMIT_CM: Double = 300.0
+        private const val LOWER_HEIGHT_LIMIT_CM: Double = 100.0
+
+        private const val UPPER_MASS_LIMIT_KG: Double = 300.0
+        private const val LOWER_MASS_LIMIT_KG: Double = 30.0
+
+        private const val CM_TO_IN_MULTIPLIER: Double = 0.39370079
+        private const val KG_TO_LB_MULTIPLIER: Double = 2.20462262
+
+        private const val INPUT_HEIGHT_CATEGORY_NAME: String = "height"
+        private const val INPUT_MASS_CATEGORY_NAME: String = "mass"
+    }
 
     var bmi: Bmi = BmiForKgCm()
 
-    private var upperHeightLimit: Double = upperHeightLimitCm
-    private var lowerHeightLimit: Double = lowerHeightLimitCm
+    private var upperHeightLimit: Double = UPPER_HEIGHT_LIMIT_CM
+    private var lowerHeightLimit: Double = LOWER_HEIGHT_LIMIT_CM
 
-    private var upperMassLimit: Double = upperMassLimitKg
-    private var lowerMassLimit: Double = lowerMassLimitKg
+    private var upperMassLimit: Double = UPPER_MASS_LIMIT_KG
+    private var lowerMassLimit: Double = LOWER_MASS_LIMIT_KG
 
     private var isImperialUnits: Boolean = false
 
@@ -41,30 +52,19 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         countBtn.setOnClickListener{
-
-            this.bmi.height = getAndValidateInput(heightET, lowerHeightLimit, upperHeightLimit, "height")
-            this.bmi.mass = getAndValidateInput(massET, lowerMassLimit, upperMassLimit, "mass")
-
-            showResults()
+            countBmi()
         }
 
         infoIB.setOnClickListener{
-            val infoIntent = Intent(this, InfoActivity::class.java).apply {
-                putExtra("bmiValue", yourBMITV.text)
-                putExtra("bmiRange", yourBMIrangeTV.text)
-            }
-            startActivity(infoIntent)
+            getInfoAboutYourBmiRange()
         }
     }
 
-    private fun getAndValidateInput(input: EditText, lowerLimit: Double, upperLimit: Double, inputCategory: String): Double{
+    private fun countBmi(){
+        this.bmi.height = getAndValidateInput(heightET, lowerHeightLimit, upperHeightLimit, INPUT_HEIGHT_CATEGORY_NAME)
+        this.bmi.mass = getAndValidateInput(massET, lowerMassLimit, upperMassLimit, INPUT_MASS_CATEGORY_NAME)
 
-        if(input.text.isEmpty() || input.text.toString().toDouble() < lowerLimit || input.text.toString().toDouble() > upperLimit){
-            Toast.makeText(this, "Provide valid $inputCategory value!", Toast.LENGTH_SHORT).show()
-            return 0.0
-        }
-
-        return input.text.toString().toDouble()
+        showResults()
     }
 
     private fun showResults(){
@@ -83,6 +83,16 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun getAndValidateInput(input: EditText, lowerLimit: Double, upperLimit: Double, inputCategory: String): Double{
+
+        if(input.text.isEmpty() || input.text.toString().toDouble() < lowerLimit || input.text.toString().toDouble() > upperLimit){
+            Toast.makeText(this, "Provide valid $inputCategory value!", Toast.LENGTH_SHORT).show()
+            return 0.0
+        }
+
+        return input.text.toString().toDouble()
+    }
+
     private fun bmiLevel(): Pair<Int, Int> {
         val bmiVal = bmi.countBmi()
 
@@ -97,43 +107,15 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-
-    override fun onSaveInstanceState(outState: Bundle?) {
-        super.onSaveInstanceState(outState)
-
-        outState?.putString("yourBMITV", yourBMITV.text.toString())
-        outState?.putString("yourBMIrangeTV", yourBMIrangeTV.text.toString())
-        outState?.putInt("bmiResultColor", yourBMITV.currentTextColor)
-        outState?.putBoolean("isImperialUnits", isImperialUnits)
-
-    }
-
-    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
-        super.onRestoreInstanceState(savedInstanceState)
-
-        if (savedInstanceState != null) {
-            if(savedInstanceState.getBoolean("isImperialUnits")){
-                isImperialUnits = savedInstanceState.getBoolean("isImperialUnits")
-                changeToImperialUnits()
-            }
+    private fun getInfoAboutYourBmiRange(){
+        val infoIntent = Intent(this, InfoActivity::class.java).apply {
+            putExtra(KEY_BMI_VALUE, yourBMITV.text)
+            putExtra(KEY_BMI_RANGE, yourBMIrangeTV.text)
         }
-
-        if(savedInstanceState?.getInt("bmiResultColor") != null){
-            yourBMITV.setTextColor(savedInstanceState.getInt("bmiResultColor"))
-        }
-
-        yourBMITV.text = savedInstanceState?.getString("yourBMITV")
-        yourBMIrangeTV.text = savedInstanceState?.getString("yourBMIrangeTV")
-
-        if(!savedInstanceState?.getString("yourBMITV").isNullOrBlank()){
-            infoIB.visibility = View.VISIBLE
-        } else {
-            infoIB.visibility = View.INVISIBLE
-        }
+        startActivity(infoIntent)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu, menu)
         return true
     }
@@ -146,42 +128,42 @@ class MainActivity : AppCompatActivity() {
         return super.onMenuOpened(featureId, menu)
     }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here.
         val id = item.itemId
 
-        if (id == R.id.aboutMI) {
-
-            val aboutIntent = Intent(this, AboutActivity::class.java)
-            startActivity(aboutIntent)
-
-            return true
-        }
-
-        if (id == R.id.changeUnitsMI) {
-
-            if(item.title == getString(R.string.bmi_menu_imperial_units)){
-                isImperialUnits = true
-                item.title = getString(R.string.bmi_menu_si_units)
-                changeToImperialUnits()
-            } else {
-                isImperialUnits = false
-                item.title = getString(R.string.bmi_menu_imperial_units)
-                changeToSIUnits()
+        when {
+            id == R.id.aboutMI -> showAbout()
+            id == R.id.changeUnitsMI -> changeUnits(item)
+            id == R.id.historyMI -> {
+                Toast.makeText(this, "See you on Sunday!", Toast.LENGTH_LONG).show()
+                return true
             }
-
-            clearToStartingState()
-
-            return true
-        }
-
-        if(id == R.id.historyMI) {
-
-            Toast.makeText(this, "See you on Sunday!", Toast.LENGTH_LONG).show()
-            return true
         }
 
         return super.onOptionsItemSelected(item)
 
+    }
+
+    private fun showAbout(): Boolean {
+        val aboutIntent = Intent(this, AboutActivity::class.java)
+        startActivity(aboutIntent)
+
+        return true
+    }
+
+    private fun changeUnits(item: MenuItem): Boolean {
+        if(item.title == getString(R.string.bmi_menu_imperial_units)){
+            isImperialUnits = true
+            item.title = getString(R.string.bmi_menu_si_units)
+            changeToImperialUnits()
+        } else {
+            isImperialUnits = false
+            item.title = getString(R.string.bmi_menu_imperial_units)
+            changeToSIUnits()
+        }
+
+        clearToStartingState()
+
+        return true
     }
 
     private fun changeToImperialUnits(){
@@ -190,11 +172,11 @@ class MainActivity : AppCompatActivity() {
         massTV.text = getString(R.string.bmi_main_mass_lb)
 
 
-        upperHeightLimit = upperHeightLimitCm*cmToInMultiplier
-        lowerHeightLimit = lowerHeightLimitCm*cmToInMultiplier
+        upperHeightLimit = UPPER_HEIGHT_LIMIT_CM*CM_TO_IN_MULTIPLIER
+        lowerHeightLimit = LOWER_HEIGHT_LIMIT_CM*CM_TO_IN_MULTIPLIER
 
-        upperMassLimit = upperMassLimitKg*kgToLbMultiplier
-        lowerMassLimit = lowerMassLimitKg*kgToLbMultiplier
+        upperMassLimit = UPPER_MASS_LIMIT_KG*KG_TO_LB_MULTIPLIER
+        lowerMassLimit = LOWER_MASS_LIMIT_KG*KG_TO_LB_MULTIPLIER
     }
 
     private fun changeToSIUnits(){
@@ -204,11 +186,11 @@ class MainActivity : AppCompatActivity() {
         massTV.text = getString(R.string.bmi_main_mass_kg)
 
 
-        upperHeightLimit = upperHeightLimitCm
-        lowerHeightLimit = lowerHeightLimitCm
+        upperHeightLimit = UPPER_HEIGHT_LIMIT_CM
+        lowerHeightLimit = LOWER_HEIGHT_LIMIT_CM
 
-        upperMassLimit = upperMassLimitKg
-        lowerMassLimit = lowerMassLimitKg
+        upperMassLimit = UPPER_MASS_LIMIT_KG
+        lowerMassLimit = LOWER_MASS_LIMIT_KG
     }
 
     private fun clearToStartingState(){
@@ -218,5 +200,39 @@ class MainActivity : AppCompatActivity() {
         yourBMITV.text = ""
         yourBMIrangeTV.text = ""
         infoIB.visibility = View.INVISIBLE
+    }
+
+    override fun onSaveInstanceState(outState: Bundle?) {
+        super.onSaveInstanceState(outState)
+
+        outState?.putString(KEY_BMI_VALUE, yourBMITV.text.toString())
+        outState?.putString(KEY_BMI_RANGE, yourBMIrangeTV.text.toString())
+        outState?.putInt(KEY_BMI_RESULT_COLOR, yourBMITV.currentTextColor)
+        outState?.putBoolean(KEY_IMPERIAL_UNITS_FLAG, isImperialUnits)
+
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
+        super.onRestoreInstanceState(savedInstanceState)
+
+        if (savedInstanceState != null) {
+            if(savedInstanceState.getBoolean(KEY_IMPERIAL_UNITS_FLAG)){
+                isImperialUnits = savedInstanceState.getBoolean(KEY_IMPERIAL_UNITS_FLAG)
+                changeToImperialUnits()
+            }
+        }
+
+        if(savedInstanceState?.getInt(KEY_BMI_RESULT_COLOR) != null){
+            yourBMITV.setTextColor(savedInstanceState.getInt(KEY_BMI_RESULT_COLOR))
+        }
+
+        yourBMITV.text = savedInstanceState?.getString(KEY_BMI_VALUE)
+        yourBMIrangeTV.text = savedInstanceState?.getString(KEY_BMI_RANGE)
+
+        if(!savedInstanceState?.getString(KEY_BMI_VALUE).isNullOrBlank()){
+            infoIB.visibility = View.VISIBLE
+        } else {
+            infoIB.visibility = View.INVISIBLE
+        }
     }
 }

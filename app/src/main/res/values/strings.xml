@@ -31,12 +31,13 @@
 
     <string name="bmi_info_title">Info</string>
     <string name="bmi_info_scale_description">Scale photo</string>
+    <string name="bmi_info_bmi_value">Your BMI:</string>
 
     <string name="bmi_lorem_ipsum">Lorem ipsum dolor sit amet felis vitae libero. Maecenas nunc. Maecenas feugiat sit
         amet, consectetuer mollis. Suspendisse potenti. Cras enim pharetra eget, condimentum sit amet leo. Etiam nibh.
         Fusce tempor magna non leo lacus, faucibus scelerisque. Proin luctus. Sed ac turpis sed leo. Integer convallis
         accumsan, libero quis neque vel wisi. Vestibulum turpis tellus, quis neque. Phasellus semper nec, elementum.
     </string>
-    <string name="bmi_info_bmi_value">Your BMI:</string>
-
+    <string name="bmi_main_range_picture_descr">Range picture</string>
+    <string name="bmi_main_info_btn">Info button</string>
 </resources>

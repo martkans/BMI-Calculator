@@ -10,8 +10,8 @@ class InfoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_info)
 
-        val bmiValueText = getString(R.string.bmi_info_bmi_value) + "\n" + intent.getStringExtra("bmiValue")
-        val bmiDescriptionText = intent.getStringExtra("bmiRange") + " " + getString(R.string.bmi_lorem_ipsum)
+        val bmiValueText = getString(R.string.bmi_info_bmi_value) + "\n" + intent.getStringExtra(MainActivity.KEY_BMI_VALUE)
+        val bmiDescriptionText = intent.getStringExtra(MainActivity.KEY_BMI_RANGE) + " " + getString(R.string.bmi_lorem_ipsum)
 
         bmiValueET.text = bmiValueText
         bmiDescriptionET.text = bmiDescriptionText
