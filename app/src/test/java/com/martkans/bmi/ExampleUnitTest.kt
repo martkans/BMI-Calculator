@@ -18,7 +18,7 @@ class ExampleUnitTest {
 
     @Test
     fun for_valid_data_return_bmi(){
-        val bmi = BmiForKgCm(65, 170)
+        val bmi = BmiForKgCm(65.0, 170.0)
         assertEquals(22.491, bmi.countBmi(), 0.001)
     }
 }
