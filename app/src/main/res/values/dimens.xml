@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="bmi_margins_side_layout">8dp</dimen>
+    <dimen name="bmi_margin_bottom_layout">16dp</dimen>
+    <dimen name="bmi_margin_top_layout">8dp</dimen>
+    <dimen name="bmi_width_IV">0dp</dimen>
+    <dimen name="bmi_height_IV">0dp</dimen>
+    <dimen name="bmi_margin_top_TV">32dp</dimen>
+    <dimen name="bmi_about_margin_elements">32dp</dimen>
+    <dimen name="bmi_text_size_big">36sp</dimen>
+    <dimen name="bmi_text_size_medium">24sp</dimen>
+    <dimen name="bmi_text_size_small">18sp</dimen>
+    <dimen name="bmi_info_margin_elements">0dp</dimen>
+    <dimen name="bmi_info_padding_elements">8dp</dimen>
+    <dimen name="bmi_width_button">0dp</dimen>
+    <dimen name="bmi_main_margin_elements">8dp</dimen>
+    <dimen name="bmi_width_ET">0dp</dimen>
+</resources>

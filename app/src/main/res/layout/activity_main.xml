@@ -5,16 +5,19 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MainActivity" android:textAlignment="center" android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp" android:layout_marginBottom="16dp" android:layout_marginTop="8dp">
+        tools:context=".MainActivity" android:textAlignment="center"
+        android:layout_marginLeft="@dimen/bmi_margins_side_layout"
+        android:layout_marginRight="@dimen/bmi_margins_side_layout"
+        android:layout_marginBottom="@dimen/bmi_margin_bottom_layout"
+        android:layout_marginTop="@dimen/bmi_margin_top_layout">
     <ImageView
-            android:layout_width="0dp"
+            android:layout_width="@dimen/bmi_width_IV"
             android:id="@+id/rangeIV"
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintBottom_toTopOf="@+id/guideline"
             app:srcCompat="@drawable/bmi"
-            android:layout_height="0dp" android:contentDescription="@string/bmi_main_range_picture_descr"/>
+            android:layout_height="@dimen/bmi_height_IV" android:contentDescription="@string/bmi_main_range_picture_descr"/>
     <android.support.constraint.Guideline android:layout_width="wrap_content" android:layout_height="wrap_content"
                                           android:id="@+id/guideline"
                                           android:orientation="horizontal"
@@ -25,11 +28,11 @@
             android:layout_height="wrap_content"
             android:id="@+id/heightTV" app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0" android:layout_marginTop="32dp"
+            app:layout_constraintHorizontal_bias="0.0" android:layout_marginTop="@dimen/bmi_margin_top_TV"
             app:layout_constraintTop_toTopOf="@+id/guideline" android:textColor="@android:color/black"/>
     <Button
             android:text="@string/bmi_main_count"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/bmi_width_button"
             android:layout_height="wrap_content"
             android:id="@+id/countBtn"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -44,17 +47,17 @@
             android:layout_height="wrap_content"
             android:id="@+id/yourBMITV"
             app:layout_constraintTop_toTopOf="@+id/guideline2" app:layout_constraintStart_toStartOf="parent"
-            android:textSize="36sp"
+            android:textSize="@dimen/bmi_text_size_big"
             android:textColor="@android:color/black" android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/guideline3" app:layout_constraintVertical_bias="0.3"
-            android:layout_marginTop="8dp"/>
+            android:layout_marginTop="@dimen/bmi_main_margin_elements"/>
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/yourBMIrangeTV" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/yourBMITV" android:textSize="24sp"
+            android:layout_marginTop="@dimen/bmi_main_margin_elements"
+            app:layout_constraintTop_toBottomOf="@+id/yourBMITV" android:textSize="@dimen/bmi_text_size_medium"
             android:textAlignment="center" android:textColor="@android:color/black"
             app:layout_constraintBottom_toTopOf="@+id/guideline3" app:layout_constraintVertical_bias="0.07999998"
             app:layout_constraintEnd_toEndOf="parent"/>
@@ -63,11 +66,11 @@
                                           android:orientation="horizontal"
                                           app:layout_constraintGuide_percent="0.9"/>
     <EditText
-            android:layout_width="0dp"
+            android:layout_width="@dimen/bmi_width_ET"
             android:layout_height="wrap_content"
             android:inputType="number|numberDecimal"
             android:ems="10"
-            android:id="@+id/heightET" android:layout_marginTop="8dp"
+            android:id="@+id/heightET" android:layout_marginTop="@dimen/bmi_main_margin_elements"
             app:layout_constraintTop_toBottomOf="@+id/heightTV"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"/>
@@ -75,18 +78,18 @@
             android:text="@string/bmi_main_mass_kg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/massTV" android:layout_marginTop="8dp"
+            android:id="@+id/massTV" android:layout_marginTop="@dimen/bmi_main_margin_elements"
             app:layout_constraintTop_toBottomOf="@+id/heightET" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintHorizontal_bias="0.0" android:textColor="@android:color/black"/>
     <EditText
-            android:layout_width="0dp"
+            android:layout_width="@dimen/bmi_width_ET"
             android:layout_height="wrap_content"
             android:inputType="number|numberDecimal"
             android:ems="10"
             android:id="@+id/massET"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginTop="@dimen/bmi_main_margin_elements"
             app:layout_constraintTop_toBottomOf="@+id/massTV"/>
     <ImageButton
             android:layout_width="wrap_content"
@@ -98,5 +101,5 @@
             app:layout_constraintHorizontal_bias="0.25" android:visibility="invisible"
             app:layout_constraintBottom_toTopOf="@+id/guideline3" app:layout_constraintVertical_bias="0.35000002"
             android:contentDescription="@string/bmi_main_info_btn" android:background="@android:color/holo_purple"
-            android:layout_marginTop="8dp"/>
+            android:layout_marginTop="@dimen/bmi_main_margin_elements"/>
 </android.support.constraint.ConstraintLayout>

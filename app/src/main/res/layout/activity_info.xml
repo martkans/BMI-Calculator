@@ -5,8 +5,10 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".InfoActivity" android:layout_marginBottom="16dp" android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp" android:layout_marginTop="8dp">
+        tools:context=".InfoActivity" android:layout_marginBottom="@dimen/bmi_margin_bottom_layout"
+        android:layout_marginLeft="@dimen/bmi_margins_side_layout"
+        android:layout_marginRight="@dimen/bmi_margins_side_layout"
+        android:layout_marginTop="@dimen/bmi_margin_top_layout">
 
     <ImageView
             android:layout_width="wrap_content"
@@ -19,14 +21,14 @@
             android:text="@string/bmi_lorem_ipsum"
             android:layout_alignParentStart="true"
             android:textColor="@android:color/black" android:layout_toStartOf="@+id/scaleIV"
-            android:layout_marginEnd="0dp" android:textAlignment="center"/>
+            android:layout_marginEnd="@dimen/bmi_info_margin_elements" android:textAlignment="center"/>
     <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content" android:id="@+id/bmiValueET"
             android:text="@string/bmi_info_bmi_value"
-            android:textColor="@android:color/black" android:textSize="24sp"
+            android:textColor="@android:color/black" android:textSize="@dimen/bmi_text_size_medium"
             android:layout_below="@id/scaleIV"
-            android:layout_alignParentEnd="true" android:layout_marginEnd="0dp" android:layout_marginTop="16dp"
-            android:layout_marginStart="0dp" android:layout_alignStart="@+id/scaleIV" android:textAlignment="center"
-            android:textStyle="bold"/>
+            android:layout_alignParentEnd="true" android:layout_marginEnd="@dimen/bmi_info_margin_elements" android:layout_marginTop="@dimen/bmi_info_margin_elements"
+            android:layout_marginStart="@dimen/bmi_info_margin_elements" android:layout_alignStart="@+id/scaleIV" android:textAlignment="center"
+            android:textStyle="bold" android:paddingTop="@dimen/bmi_info_padding_elements"/>
 </RelativeLayout>
