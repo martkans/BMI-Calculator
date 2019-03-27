@@ -13,25 +13,36 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
 
-        <activity android:name=".MainActivity"
-                  android:launchMode="singleTop">
-
+        <activity
+                android:name=".MainActivity"
+                android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-
-        <activity android:name=".AboutActivity"
-                  android:label="@string/bmi_about_title"
-                  android:parentActivityName=".MainActivity">
+        <activity
+                android:name=".AboutActivity"
+                android:label="@string/bmi_about_title"
+                android:parentActivityName=".MainActivity"
+                android:screenOrientation="portrait">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value=".MainActivity">
             </meta-data>
         </activity>
 
+        <activity
+                android:name=".InfoActivity"
+                android:label="@string/bmi_info_title"
+                android:parentActivityName=".MainActivity"
+                android:screenOrientation="portrait">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value=".MainActivity">
+            </meta-data>
+        </activity>
     </application>
 
 </manifest>

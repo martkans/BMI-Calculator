@@ -47,6 +47,14 @@ class MainActivity : AppCompatActivity() {
 
             showResults()
         }
+
+        infoIB.setOnClickListener{
+            val infoIntent = Intent(this, InfoActivity::class.java).apply {
+                putExtra("bmiValue", yourBMITV.text)
+                putExtra("bmiRange", yourBMIrangeTV.text)
+            }
+            startActivity(infoIntent)
+        }
     }
 
     private fun getAndValidateInput(input: EditText, lowerLimit: Double, upperLimit: Double, inputCategory: String): Double{
@@ -168,7 +176,7 @@ class MainActivity : AppCompatActivity() {
 
         if(id == R.id.historyMI) {
 
-            Toast.makeText(this, "History Clicked", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "See you on Sunday!", Toast.LENGTH_LONG).show()
             return true
         }
 

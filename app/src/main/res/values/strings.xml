@@ -19,6 +19,24 @@
     <string name="bmi_menu_imperial_units">Change to imperial units</string>
     <string name="bmi_menu_si_units">Change to SI units</string>
     <string name="bmi_menu_history">History</string>
+
     <string name="bmi_about_title">About me</string>
+    <string name="bmi_about_app_purpose">Hello! I am Red Power Ranger. This application was made to help my mates stay
+        in shape.
+    </string>
+    <string name="bmi_about_hobby">When I am not fighting with the strength of evil I like programming in Ocaml and
+        crocheting.
+    </string>
+    <string name="bmi_about_team_photo_descr">My Team Photo</string>
+
+    <string name="bmi_info_title">Info</string>
+    <string name="bmi_info_scale_description">Scale photo</string>
+
+    <string name="bmi_lorem_ipsum">Lorem ipsum dolor sit amet felis vitae libero. Maecenas nunc. Maecenas feugiat sit
+        amet, consectetuer mollis. Suspendisse potenti. Cras enim pharetra eget, condimentum sit amet leo. Etiam nibh.
+        Fusce tempor magna non leo lacus, faucibus scelerisque. Proin luctus. Sed ac turpis sed leo. Integer convallis
+        accumsan, libero quis neque vel wisi. Vestibulum turpis tellus, quis neque. Phasellus semper nec, elementum.
+    </string>
+    <string name="bmi_info_bmi_value">Your BMI:</string>
 
 </resources>
