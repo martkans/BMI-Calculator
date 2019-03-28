@@ -8,7 +8,6 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.EditText
-import android.widget.Toast
 import com.martkans.bmi.logic.Bmi
 import com.martkans.bmi.logic.BmiForKgCm
 import com.martkans.bmi.logic.BmiForLbIn
@@ -133,14 +132,10 @@ class MainActivity : AppCompatActivity() {
         when (id) {
             R.id.aboutMI -> showAbout()
             R.id.changeUnitsMI -> changeUnits(item)
-            R.id.historyMI -> {
-                Toast.makeText(this, "See you on Sunday!", Toast.LENGTH_LONG).show()
-                return true
-            }
+            R.id.historyMI -> showHistory()
         }
 
         return super.onOptionsItemSelected(item)
-
     }
 
     private fun showAbout(): Boolean {
@@ -200,6 +195,13 @@ class MainActivity : AppCompatActivity() {
         yourBMITV.text = ""
         yourBMIrangeTV.text = ""
         infoIB.visibility = View.INVISIBLE
+    }
+
+    private fun showHistory(): Boolean{
+        val historyIntent = Intent(this, HistoryActivity::class.java)
+        startActivity(historyIntent)
+
+        return true
     }
 
     override fun onSaveInstanceState(outState: Bundle?) {
