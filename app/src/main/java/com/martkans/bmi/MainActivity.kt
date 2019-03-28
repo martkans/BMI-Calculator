@@ -14,8 +14,6 @@ import com.martkans.bmi.logic.BmiForLbIn
 
 import kotlinx.android.synthetic.main.activity_main.*
 import android.content.Context
-import android.util.Log
-import android.widget.Toast
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.martkans.bmi.logic.BmiResult
@@ -102,8 +100,6 @@ class MainActivity : AppCompatActivity() {
 
         val result = BmiResult(yourBMITV.text.toString(), this.bmi.height.toString(),
             this.bmi.mass.toString(), Date(), bmiColorResult, isImperialUnits)
-
-        Toast.makeText(this, bmiColorResult.toString(), Toast.LENGTH_SHORT).show()
 
         val sharedPref = this.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE)
         val newHistory = ArrayList<BmiResult>()

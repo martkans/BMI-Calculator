@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.martkans.bmi.adapters.HistoryAdapter
 import com.martkans.bmi.logic.BmiResult
 import kotlinx.android.synthetic.main.activity_history.*
 

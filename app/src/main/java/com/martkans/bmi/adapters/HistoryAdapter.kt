@@ -1,17 +1,17 @@
-package com.martkans.bmi
+package com.martkans.bmi.adapters
 
-import android.content.res.ColorStateList
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.martkans.bmi.R
 import com.martkans.bmi.logic.BmiResult
 import java.text.SimpleDateFormat
 
 class HistoryAdapter(private val historyDataset: ArrayList<BmiResult>) : RecyclerView.Adapter<HistoryAdapter.ViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HistoryAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view: View = LayoutInflater.from(parent.context).inflate(R.layout.result_row, parent, false)
         return ViewHolder(view)
     }
