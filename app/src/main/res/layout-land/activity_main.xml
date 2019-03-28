@@ -54,7 +54,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/countBtn"
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="@+id/guideline4"
-            app:layout_constraintEnd_toEndOf="parent" android:background="@android:color/holo_green_dark"/>
+            app:layout_constraintEnd_toEndOf="parent" android:background="@android:color/holo_green_dark"
+            android:textColor="@android:color/white"/>
     <android.support.constraint.Guideline
             android:orientation="horizontal"
             android:layout_width="wrap_content"

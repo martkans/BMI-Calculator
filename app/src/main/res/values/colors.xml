@@ -9,4 +9,7 @@
     <color name="lapisLazuli">#3366CC</color>
     <color name="cobaltic">#19247C</color>
     <color name="blueberry">#800080</color>
+
+    <color name="historyLabelsColor">#1F3F3F</color>
+    <color name="historyRowColor">#D2B48C</color>
 </resources>

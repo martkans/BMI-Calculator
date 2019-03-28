@@ -15,4 +15,6 @@
     <dimen name="bmi_width_button">0dp</dimen>
     <dimen name="bmi_main_margin_elements">8dp</dimen>
     <dimen name="bmi_width_ET">0dp</dimen>
+    <dimen name="bmi_history_padding_layout">16dp</dimen>
+    <dimen name="bmi_history_margin_elements">8dp</dimen>
 </resources>

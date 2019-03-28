@@ -40,4 +40,8 @@
     </string>
     <string name="bmi_main_range_picture_descr">Range picture</string>
     <string name="bmi_main_info_btn">Info button</string>
+    <string name="bmi_history_title">History</string>
+    <string name="bmi_history_bmi">BMI:</string>
+    <string name="bmi_history_date">Date:</string>
+    <string name="bmi_error_message">Provide valid value!</string>
 </resources>
