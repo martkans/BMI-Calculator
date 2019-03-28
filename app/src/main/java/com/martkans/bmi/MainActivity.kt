@@ -13,12 +13,22 @@ import com.martkans.bmi.logic.BmiForKgCm
 import com.martkans.bmi.logic.BmiForLbIn
 
 import kotlinx.android.synthetic.main.activity_main.*
+import android.content.Context
+import android.util.Log
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import com.martkans.bmi.logic.BmiResult
+import java.util.*
+import kotlin.collections.ArrayList
+
 
 class MainActivity : AppCompatActivity() {
 
     companion object {
         const val KEY_BMI_VALUE: String = "bmiValue"
         const val KEY_BMI_RANGE: String = "bmiRange"
+        const val SHARED_PREF_NAME: String = "historySharedPref"
+        const val KEY_SHARED_PREF: String = "history"
 
         private const val KEY_BMI_RESULT_COLOR: String = "bmiResultColor"
         private const val KEY_IMPERIAL_UNITS_FLAG: String = "imperialUnitsFlag"
@@ -63,10 +73,12 @@ class MainActivity : AppCompatActivity() {
         this.bmi.height = getAndValidateInput(heightET, lowerHeightLimit, upperHeightLimit, INPUT_HEIGHT_CATEGORY_NAME)
         this.bmi.mass = getAndValidateInput(massET, lowerMassLimit, upperMassLimit, INPUT_MASS_CATEGORY_NAME)
 
-        showResults()
+        if(showResults()){
+            saveResult()
+        }
     }
 
-    private fun showResults(){
+    private fun showResults(): Boolean{
 
         if(bmi.countBmi() != 0.0){
             val bmiRangeDescription = bmiLevel()
@@ -77,9 +89,46 @@ class MainActivity : AppCompatActivity() {
             yourBMIrangeTV.setText(bmiRangeDescription.first)
 
             infoIB.visibility = View.VISIBLE
+
+            return true
         } else {
             infoIB.visibility = View.INVISIBLE
+            return false
         }
+    }
+
+    private fun saveResult(){
+
+        val result = BmiResult(yourBMITV.text.toString(), this.bmi.height.toString(),
+            this.bmi.mass.toString(), Date(), yourBMIrangeTV.currentTextColor, isImperialUnits)
+
+        val sharedPref = this.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE)
+        val newHistory = ArrayList<BmiResult>()
+
+        if(sharedPref.getString(KEY_SHARED_PREF, null) != null){
+
+            val typeToken = object : TypeToken<ArrayList<BmiResult>>() {}
+            val oldHistory: ArrayList<BmiResult> = Gson().fromJson<ArrayList<BmiResult>>(sharedPref.getString(KEY_SHARED_PREF, ""),
+                typeToken.type)
+
+            newHistory.add(result)
+
+            if(oldHistory.size == 10){
+                for(i in 0..8)
+                    newHistory.add(oldHistory[i])
+            } else {
+                for (i in 0 until oldHistory.size)
+                    newHistory.add(oldHistory[i])
+            }
+
+        } else {
+            newHistory.add(result)
+        }
+
+        val editor = sharedPref.edit()
+        editor.putString(KEY_SHARED_PREF, Gson().toJson(newHistory))
+        editor.apply()
+
     }
 
     private fun getAndValidateInput(input: EditText, lowerLimit: Double, upperLimit: Double, inputCategory: String): Double{
