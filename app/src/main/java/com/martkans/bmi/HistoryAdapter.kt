@@ -1,5 +1,6 @@
 package com.martkans.bmi
 
+import android.content.res.ColorStateList
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -17,8 +18,7 @@ class HistoryAdapter(private val historyDataset: ArrayList<BmiResult>) : Recycle
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-
-        
+        holder.bmiVal.setTextColor(historyDataset[position].resultColor)
         holder.bmiVal.text = historyDataset[position].bmiVal
 
         if(historyDataset[position].isImperial){

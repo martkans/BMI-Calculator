@@ -15,6 +15,7 @@ import com.martkans.bmi.logic.BmiForLbIn
 import kotlinx.android.synthetic.main.activity_main.*
 import android.content.Context
 import android.util.Log
+import android.widget.Toast
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.martkans.bmi.logic.BmiResult
@@ -41,9 +42,6 @@ class MainActivity : AppCompatActivity() {
 
         private const val CM_TO_IN_MULTIPLIER: Double = 0.39370079
         private const val KG_TO_LB_MULTIPLIER: Double = 2.20462262
-
-        private const val INPUT_HEIGHT_CATEGORY_NAME: String = "height"
-        private const val INPUT_MASS_CATEGORY_NAME: String = "mass"
     }
 
     var bmi: Bmi = BmiForKgCm()
@@ -55,6 +53,7 @@ class MainActivity : AppCompatActivity() {
     private var lowerMassLimit: Double = LOWER_MASS_LIMIT_KG
 
     private var isImperialUnits: Boolean = false
+    private var bmiColorResult:Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,8 +69,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun countBmi(){
-        this.bmi.height = getAndValidateInput(heightET, lowerHeightLimit, upperHeightLimit, INPUT_HEIGHT_CATEGORY_NAME)
-        this.bmi.mass = getAndValidateInput(massET, lowerMassLimit, upperMassLimit, INPUT_MASS_CATEGORY_NAME)
+        this.bmi.height = getAndValidateInput(heightET, lowerHeightLimit, upperHeightLimit)
+        this.bmi.mass = getAndValidateInput(massET, lowerMassLimit, upperMassLimit)
 
         if(showResults()){
             saveResult()
@@ -88,6 +87,8 @@ class MainActivity : AppCompatActivity() {
 
             yourBMIrangeTV.setText(bmiRangeDescription.first)
 
+            bmiColorResult = yourBMITV.currentTextColor
+
             infoIB.visibility = View.VISIBLE
 
             return true
@@ -100,7 +101,9 @@ class MainActivity : AppCompatActivity() {
     private fun saveResult(){
 
         val result = BmiResult(yourBMITV.text.toString(), this.bmi.height.toString(),
-            this.bmi.mass.toString(), Date(), yourBMIrangeTV.currentTextColor, isImperialUnits)
+            this.bmi.mass.toString(), Date(), bmiColorResult, isImperialUnits)
+
+        Toast.makeText(this, bmiColorResult.toString(), Toast.LENGTH_SHORT).show()
 
         val sharedPref = this.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE)
         val newHistory = ArrayList<BmiResult>()
@@ -131,10 +134,10 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun getAndValidateInput(input: EditText, lowerLimit: Double, upperLimit: Double, inputCategory: String): Double{
+    private fun getAndValidateInput(input: EditText, lowerLimit: Double, upperLimit: Double): Double{
 
         if(input.text.isEmpty() || input.text.toString().toDouble() < lowerLimit || input.text.toString().toDouble() > upperLimit){
-            input.error = "Provide valid $inputCategory value!"
+            input.error = getString(R.string.bmi_error_message)
             return 0.0
         }
 
